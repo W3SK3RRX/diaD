@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bom dia, minha princesa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Nunito:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --night:  #2a1a40;
+    --plum:   #5b3a66;
+    --rose:   #e79a9f;
+    --peach:  #f8c58c;
+    --cream:  #fff6ec;
+    --gold:   #f6cd6a;
+    --ink:    #4a2f4d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(180deg,
+        var(--night)  0%,
+        var(--plum)   34%,
+        var(--rose)   66%,
+        var(--peach)  100%);
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    padding: clamp(1.2rem, 4vw, 3rem);
+  }
+
+  /* ---------- Sol nascente ---------- */
+  .sun {
+    position: fixed;
+    left: 50%;
+    bottom: -28vmin;
+    width: 64vmin;
+    height: 64vmin;
+    transform: translateX(-50%) translateY(40%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+        #fff7e6 0%,
+        var(--gold) 40%,
+        rgba(246,205,106,0.55) 62%,
+        rgba(246,205,106,0) 75%);
+    filter: blur(2px);
+    opacity: 0;
+    z-index: 0;
+    animation: sunrise 2.6s 0.2s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  .sun::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,247,230,0.45) 0%, rgba(255,247,230,0) 60%);
+    animation: glow 6s ease-in-out 2.8s infinite;
+  }
+
+  @keyframes sunrise {
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  @keyframes glow {
+    0%, 100% { opacity: .55; transform: scale(1); }
+    50%      { opacity: .9;  transform: scale(1.06); }
+  }
+
+  /* ---------- Pétalas / brilhos flutuantes ---------- */
+  .petals { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  .petal {
+    position: absolute;
+    bottom: -8vh;
+    font-size: 1.1rem;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0%   { opacity: 0;   transform: translateY(0) translateX(0) rotate(0deg); }
+    10%  { opacity: .9; }
+    90%  { opacity: .7; }
+    100% { opacity: 0;  transform: translateY(-115vh) translateX(8vw) rotate(220deg); }
+  }
+
+  /* ---------- Cartão ---------- */
+  .card {
+    position: relative;
+    z-index: 2;
+    width: min(620px, 100%);
+    background: rgba(255, 248, 240, 0.16);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    border: 1px solid rgba(255, 246, 236, 0.45);
+    border-radius: 30px;
+    padding: clamp(2rem, 5.5vw, 3.6rem);
+    box-shadow:
+        0 30px 70px -20px rgba(42, 26, 64, 0.55),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(34px) scale(.98);
+    animation: cardIn 1.1s 1.1s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: rgba(91, 58, 102, 0.35);
+    border: 1px solid rgba(255,246,236,0.35);
+    padding: .5rem 1.05rem;
+    border-radius: 999px;
+    margin-bottom: clamp(1.4rem, 4vw, 2rem);
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  .greeting {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 7.2vw, 3.3rem);
+    line-height: 1.08;
+    color: var(--cream);
+    text-shadow: 0 2px 24px rgba(42,26,64,0.35);
+    margin-bottom: clamp(1.4rem, 4vw, 2rem);
+  }
+  .greeting em {
+    font-style: italic;
+    color: #ffe9c7;
+  }
+
+  .message p {
+    font-size: clamp(1.02rem, 3.1vw, 1.18rem);
+    line-height: 1.7;
+    color: #fff6ec;
+    margin: 0 auto 1.15rem;
+    max-width: 46ch;
+    text-shadow: 0 1px 12px rgba(42,26,64,0.30);
+  }
+  .message p:last-of-type { margin-bottom: 0; }
+
+  .playful {
+    font-style: italic;
+    color: #ffe3d2;
+  }
+  .playful .laugh {
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: var(--gold);
+  }
+
+  .sincere {
+    font-weight: 600;
+    color: #fffaf3;
+  }
+
+  .signoff {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.7rem, 5vw, 2.1rem);
+    color: #ffe9c7;
+    margin-top: clamp(1.6rem, 4.5vw, 2.2rem);
+    line-height: 1;
+  }
+
+  .heart {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: var(--rose);
+    filter: drop-shadow(0 0 12px rgba(231,154,159,.8));
+    animation: beat 1.9s ease-in-out infinite;
+  }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.22); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.16); }
+  }
+
+  /* Revelação encadeada das linhas */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: lineIn .9s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes lineIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .d1 { animation-delay: 1.7s; }
+  .d2 { animation-delay: 2.2s; }
+  .d3 { animation-delay: 2.9s; }
+  .d4 { animation-delay: 3.6s; }
+  .d5 { animation-delay: 4.2s; }
+  .d6 { animation-delay: 4.7s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sun, .card, .reveal, .petal, .heart { animation: none !important; }
+    .sun  { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .card { opacity: 1; transform: none; }
+    .reveal { opacity: 1; transform: none; }
+    .petals { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <main class="card">
+    <span class="eyebrow reveal d1"><span class="dot"></span>Feliz Dia dos Namorados</span>
+
+    <h1 class="greeting reveal d2">Bom dia,<br><em>minha princesa</em></h1>
+
+    <div class="message">
+      <p class="reveal d3">Feliz dia…</p>
+
+      <p class="playful reveal d4">
+        Sei que não somos namorados ainda, mas quem sabe o que o futuro reserva
+        <span class="laugh">kkk</span> — se eu fosse você, eu teria um pouquinho de
+        paciência, esse futuro pode estar próximo.
+      </p>
+
+      <p class="sincere reveal d5">
+        Brincadeiras à parte, desejo um ótimo dia. Você é uma pessoa incrível,
+        te admiro demais.
+      </p>
+    </div>
+
+    <div class="signoff reveal d6">beijos 😘</div>
+    <div class="reveal d6"><span class="heart">♥</span></div>
+  </main>
+
+  <script>
+    // Pétalas / brilhos subindo suavemente
+    (function () {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+      const layer = document.getElementById('petals');
+      const glyphs = ['🌸', '✦', '♥', '🌷', '✧', '🤍'];
+      const COUNT = 18;
+      for (let i = 0; i < COUNT; i++) {
+        const p = document.createElement('span');
+        p.className = 'petal';
+        p.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        const dur = 9 + Math.random() * 10;
+        p.style.animationDuration = dur + 's';
+        p.style.animationDelay = (Math.random() * dur) + 's';
+        p.style.fontSize = (0.7 + Math.random() * 1.1) + 'rem';
+        layer.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>
